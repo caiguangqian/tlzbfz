@@ -1,14 +1,15 @@
 package com.vanda.tlzbfz.service;
 
 
-/**
- * <p>
- * 任务录入 服务类
- * </p>
- *
- * @author onion
- * @since 2020-12-07
- */
+import com.vanda.tlzbfz.entity.TRwlrBean;
+
+import java.util.List;
+
 public interface TRwlrService  {
+
+    int insertSelective(TRwlrBean record);
+    int updateBySelective(TRwlrBean record);
+    List<TRwlrBean>  getRwlrByCondition(TRwlrBean tRwlrBean);
+    //TRwlrBean  queryRwlrByRwbh(String rwbh);
 
 }
