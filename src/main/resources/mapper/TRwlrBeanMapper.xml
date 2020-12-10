@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanda.tlzbfz.mapper.TRwlrBeanMapper">
+  <resultMap id="BaseResultMap" type="com.vanda.tlzbfz.entity.TRwlrBean">
+    <constructor>
+      <arg column="RWBH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="RWJC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="YQCS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="KSRQ" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="JSRQ" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="RWLX" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="RWSM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="FBDW" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SCWJ" javaType="_byte[]" jdbcType="BLOB" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+   RWBH, RWJC, YQCS,
+      KSRQ, JSRQ, RWLX,
+      RWSM, FBDW, SCWJ
+  </sql>
+  <select id="getRwlrByCondition" parameterType="com.vanda.tlzbfz.entity.TRwlrBean" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from JG_XT.T_RWLR
+    where 1=1
+    <if test="rwbh != null">
+      and RWBH = #{rwbh,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--<select id="queryRwlrByRwbh" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from JG_XT.T_RWLR
+    where 1=1 or RWBH = #{rwbh,jdbcType=VARCHAR}
+  </select>-->
+
+  <insert id="insertSelective" parameterType="com.vanda.tlzbfz.entity.TRwlrBean">
+
+    insert into JG_XT.T_RWLR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rwbh != null">
+        RWBH,
+      </if>
+      <if test="rwjc != null">
+        RWJC,
+      </if>
+      <if test="yqcs != null">
+        YQCS,
+      </if>
+      <if test="ksrq != null">
+        KSRQ,
+      </if>
+      <if test="jsrq != null">
+        JSRQ,
+      </if>
+      <if test="rwlx != null">
+        RWLX,
+      </if>
+      <if test="rwsm != null">
+        RWSM,
+      </if>
+      <if test="fbdw != null">
+        FBDW,
+      </if>
+      <if test="scwj != null">
+        SCWJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rwbh != null">
+        #{rwbh,jdbcType=VARCHAR},
+      </if>
+      <if test="rwjc != null">
+        #{rwjc,jdbcType=VARCHAR},
+      </if>
+      <if test="yqcs != null">
+        #{yqcs,jdbcType=VARCHAR},
+      </if>
+      <if test="ksrq != null">
+        #{ksrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrq != null">
+        #{jsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rwlx != null">
+        #{rwlx,jdbcType=VARCHAR},
+      </if>
+      <if test="rwsm != null">
+        #{rwsm,jdbcType=VARCHAR},
+      </if>
+      <if test="fbdw != null">
+        #{fbdw,jdbcType=VARCHAR},
+      </if>
+      <if test="scwj != null">
+        #{scwj,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateBySelective" parameterType="com.vanda.tlzbfz.entity.TRwlrBean">
+    update JG_XT.T_RWLR
+    <set>
+      <if test="rwjc != null">
+        RWJC =#{rwjc,jdbcType=VARCHAR},
+      </if>
+      <if test="yqcs != null">
+        YQCS =#{yqcs,jdbcType=VARCHAR},
+      </if>
+      <if test="ksrq != null">
+        KSRQ =#{ksrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrq != null">
+        JSRQ =#{jsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rwlx != null">
+        RWLX =#{rwlx,jdbcType=VARCHAR},
+      </if>
+      <if test="rwsm != null">
+        RWSM =#{rwsm,jdbcType=VARCHAR},
+      </if>
+      <if test="fbdw != null">
+        FBDW =#{fbdw,jdbcType=VARCHAR},
+      </if>
+      <if test="scwj != null">
+        SCWJ =#{scwj,jdbcType=BLOB},
+      </if>
+    </set>
+    where RWBH = #{rwbh,jdbcType=VARCHAR}
+  </update>
+</mapper>
