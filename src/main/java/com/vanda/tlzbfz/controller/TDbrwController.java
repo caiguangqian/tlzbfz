@@ -29,10 +29,10 @@ public class TDbrwController {
 
 
     //查询列表  条件查询 都使用该接口
+
     @GetMapping("/getDbrwByCondition")
     public ResultMsg getDbrwByCondition(Dbrw vDbrw){
         log.info("getFbrq>>>>>"+vDbrw.getFbrq());
-   /* public ResultMsg getDbrwByCondition(Map<String,VDbrw> vDbrw){*/
         List<VDbrw> vDbrws = vDbrwService.queryDbrwByCondition(vDbrw);
         if(vDbrws==null){
             return  new ResultMsg("400","查询数据为空",null);

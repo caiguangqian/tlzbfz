@@ -35,6 +35,7 @@ public class TRwlrController {
     @Autowired
     private RedisUtil redisUtil;
 
+
     @ApiOperation(value = "插入任务录入接口", httpMethod = "POST")
     @PostMapping("/insertRwlr")
     public ResultMsg insertRwlr(@RequestBody String json,@RequestHeader("accept_token") String accept_token) throws Exception {
@@ -77,6 +78,7 @@ public class TRwlrController {
 
         return resultMsg;
     }
+
 
 
     @PostMapping("/updateRwlr")
