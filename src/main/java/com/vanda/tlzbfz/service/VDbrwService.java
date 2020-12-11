@@ -2,6 +2,7 @@ package com.vanda.tlzbfz.service;
 
 import com.vanda.tlzbfz.entity.Dbrw;
 import com.vanda.tlzbfz.entity.TDbrwBean;
+import com.vanda.tlzbfz.entity.TRwlrBean;
 import com.vanda.tlzbfz.entity.VDbrw;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface VDbrwService {
 
     TDbrwBean getDbrwByRwbh(String rwbh);
     int updateDbrw(TDbrwBean tDbrwBean);
+    int inserDbrwSelective(TDbrwBean record);
 }

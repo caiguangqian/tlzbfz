@@ -1,25 +1,17 @@
 package com.vanda.tlzbfz.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-
+import java.util.Date;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class TRwlrBean {
 
     private String rwbh;
 
     private String rwjc;
 
-    private BigDecimal yqcs;
+    private Long yqcs;
 
     private Date ksrq;
 
@@ -31,7 +23,7 @@ public class TRwlrBean {
 
     private String fbdw;
 
-    private String scwj;
+    private byte[] scwj;
 
 
 }

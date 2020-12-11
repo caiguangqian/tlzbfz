@@ -35,7 +35,7 @@
 
   <insert id="insertSelective" parameterType="com.vanda.tlzbfz.entity.TRwlrBean">
 
-    insert into onion.T_RWLR
+    insert into T_RWLR
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="rwbh != null">
         RWBH,

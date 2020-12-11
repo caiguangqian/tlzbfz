@@ -23,6 +23,61 @@
     where RWBH = #{rwbh,jdbcType=VARCHAR}
   </select>
 
+  <insert id="inserDbrwSelective" parameterType="com.vanda.tlzbfz.entity.TDbrwBean">
+    insert into T_DBRW
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="gw != null">
+        GW,
+      </if>
+      <if test="xm != null">
+        XM,
+      </if>
+      <if test="zt != null">
+        ZT,
+      </if>
+      <if test="bjcjs != null">
+        BJCJS,
+      </if>
+      <if test="wccs != null">
+        WCCS,
+      </if>
+      <if test="sycs != null">
+        sycs,
+      </if>
+      <if test="rwbh != null">
+        RWBH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="gw != null">
+        #{gw,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null">
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null">
+        #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="bjcjs != null">
+        #{bjcjs,jdbcType=VARCHAR},
+      </if>
+      <if test="wccs != null">
+        #{wccs,jdbcType=DECIMAL},
+      </if>
+      <if test="sycs != null">
+        #{sycs,jdbcType=DECIMAL},
+      </if>
+      <if test="rwbh != null">
+        #{rwbh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
   <update id="updateDbrw" parameterType="com.vanda.tlzbfz.entity.TDbrwBean">
     update onion.T_DBRW
     <set>
