@@ -13,7 +13,6 @@ public interface TRwlrBeanMapper {
     //编辑
     int updateBySelective(TRwlrBean record);
     //列表
-    List<TRwlrBean>  getRwlrByCondition(TRwlrBean tRwlrBean);
-    //单条记录
-   // TRwlrBean  queryRwlrByRwbh(String rwbh);
+    List<TRwlrBean>  getRwlrByCondition(TRwlrBean record);
+
 }

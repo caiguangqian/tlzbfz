@@ -1,5 +1,6 @@
 package com.vanda.tlzbfz.service.impl;
 
+import com.vanda.tlzbfz.entity.Dbrw;
 import com.vanda.tlzbfz.entity.TDbrwBean;
 import com.vanda.tlzbfz.entity.VDbrw;
 import com.vanda.tlzbfz.mapper.TDbrwBeanMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VDbrwServiceImp implements VDbrwService {
@@ -26,7 +28,7 @@ public class VDbrwServiceImp implements VDbrwService {
     }*/
 
     @Override
-    public List<VDbrw> queryDbrwByCondition(VDbrw vDbrw) {
+    public List<VDbrw> queryDbrwByCondition(Dbrw vDbrw) {
         return vDbrwMapper.queryDbrwByCondition(vDbrw);
     }
 

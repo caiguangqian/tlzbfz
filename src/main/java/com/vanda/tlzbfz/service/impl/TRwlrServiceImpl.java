@@ -1,5 +1,6 @@
 package com.vanda.tlzbfz.service.impl;
 
+import com.vanda.tlzbfz.common.util.RandomUtil;
 import com.vanda.tlzbfz.entity.TRwlrBean;
 import com.vanda.tlzbfz.mapper.TRwlrBeanMapper;
 import com.vanda.tlzbfz.service.TRwlrService;
@@ -8,14 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * <p>
- * 任务录入 服务实现类
- * </p>
- *
- * @author onion
- * @since 2020-12-07
- */
 @Service
 public class TRwlrServiceImpl implements TRwlrService {
 
@@ -24,6 +17,9 @@ public class TRwlrServiceImpl implements TRwlrService {
 
     @Override
     public int insertSelective(TRwlrBean record) {
+
+        RandomUtil randomUtil=new RandomUtil();
+        record.setRwbh(randomUtil.getGUID());
         return tRwlrBeanMapper.insertSelective(record);
     }
 
@@ -34,12 +30,9 @@ public class TRwlrServiceImpl implements TRwlrService {
     }
 
     @Override
-    public List<TRwlrBean> getRwlrByCondition(TRwlrBean tRwlrBean) {
-        return tRwlrBeanMapper.getRwlrByCondition(tRwlrBean);
+    public List<TRwlrBean> getRwlrByCondition(TRwlrBean record) {
+        return tRwlrBeanMapper.getRwlrByCondition(record);
     }
 
-   /* @Override
-    public TRwlrBean queryRwlrByRwbh(String rwbh) {
-        return tRwlrBeanMapper.queryRwlrByRwbh(rwbh);
-    }*/
+
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -24,12 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys")
 public class TokenController {
 
+    private final static Logger log = LoggerFactory.getLogger(TokenController.class);
+
     @Autowired
     private TokenService tokenService;
     @ApiOperation(value = "获取token", httpMethod = "GET")
     @ApiImplicitParam(name = "user_name", value = "用户名", paramType = "query", required = true, dataType = "String")
     @RequestMapping(value = "/gettoken",method= RequestMethod.GET)
     public String gettoken(String user_name) throws Exception{
+        log.debug("user_name");
         return tokenService.gettoken(user_name);
     }
 

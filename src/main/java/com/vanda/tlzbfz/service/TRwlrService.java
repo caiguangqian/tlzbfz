@@ -9,7 +9,7 @@ public interface TRwlrService  {
 
     int insertSelective(TRwlrBean record);
     int updateBySelective(TRwlrBean record);
-    List<TRwlrBean>  getRwlrByCondition(TRwlrBean tRwlrBean);
+    List<TRwlrBean>  getRwlrByCondition(TRwlrBean record);
     //TRwlrBean  queryRwlrByRwbh(String rwbh);
 
 }
