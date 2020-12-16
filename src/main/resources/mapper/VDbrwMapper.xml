@@ -17,9 +17,10 @@
       <result column="KSRQ" property="ksrq" jdbcType="DATE" />
       <result column="JSRQ" property="jsrq" jdbcType="DATE" />
       <result column="FBDW" property="fbdw" jdbcType="VARCHAR" />
+      <result column="RWBH" property="rwbh" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID,RWJC,BJCJS, GWMC, XM, RWSM, RWLX, YQCS, YQCS, WCCS,SYCS,ZT,KSRQ,JSRQ,FBDW
+    ID,RWJC,BJCJS, GWMC, XM, RWSM, RWLX, YQCS, YQCS, WCCS,SYCS,ZT,KSRQ,JSRQ,FBDW,RWBH
   </sql>
 
     <select id="queryDbrwByCondition" parameterType="com.vanda.tlzbfz.entity.Dbrw" resultMap="BaseResultMap">
@@ -28,7 +29,7 @@
         YQCS, YQCS, WCCS,SYCS,ZT,
         to_char(KSRQ,'yyyy-mm-dd') AS KSRQ,
         to_char(JSRQ,'yyyy-mm-dd') AS JSRQ,
-        FBDW
+        FBDW,RWBH
         from onion.V_DBRW
         where 1=1
         <if test="id != null">
@@ -55,6 +56,9 @@
         </if>
         <if test="fbdw != null">
         and FBDW = #{fbdw,jdbcType=VARCHAR}
+        </if>
+        <if test="rwbh != null">
+            and RWBH = #{rwbh,jdbcType=VARCHAR}
         </if>
 
     </select>

@@ -10,6 +10,6 @@
     </resultMap>
 
     <select id="selectuser" parameterType="java.lang.String" resultMap="BaseResultMap">
-		SELECT REAL_NAME,PKI_NO,SYS_UNIT || HS_UNIT UNIT,GW from LGN_USER where USER_NAME=#{user_name,jdbcType=VARCHAR}
+		SELECT REAL_NAME,PKI_NO,SYS_UNIT || HS_UNIT UNIT,GW from LGN_USER where pki_no=#{pki_no,jdbcType=VARCHAR}
 	</select>
 </mapper>

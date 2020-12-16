@@ -1,9 +1,6 @@
 package com.vanda.tlzbfz.service.impl;
 
-import com.vanda.tlzbfz.entity.Dbrw;
-import com.vanda.tlzbfz.entity.TDbrwBean;
-import com.vanda.tlzbfz.entity.TRwlrBean;
-import com.vanda.tlzbfz.entity.VDbrw;
+import com.vanda.tlzbfz.entity.*;
 import com.vanda.tlzbfz.mapper.TDbrwBeanMapper;
 import com.vanda.tlzbfz.mapper.VDbrwMapper;
 import com.vanda.tlzbfz.service.VDbrwService;
@@ -22,20 +19,14 @@ public class VDbrwServiceImp implements VDbrwService {
     @Autowired
     private TDbrwBeanMapper tDbrwBeanMapper;
 
-
-   /* @Override
-    public List<VDbrw> queryDbrwList() {
-        return vDbrwMapper.queryDbrwList();
-    }*/
-
     @Override
     public List<VDbrw> queryDbrwByCondition(Dbrw vDbrw) {
         return vDbrwMapper.queryDbrwByCondition(vDbrw);
     }
 
     @Override
-    public TDbrwBean getDbrwByRwbh(String rwbh) {
-        return tDbrwBeanMapper.getDbrwByRwbh(rwbh);
+    public TDbrwBean getDbrwById(String id) {
+        return tDbrwBeanMapper.getDbrwById(id);
     }
 
     @Override
@@ -46,5 +37,11 @@ public class VDbrwServiceImp implements VDbrwService {
     @Override
     public int inserDbrwSelective(TDbrwBean record) {
         return tDbrwBeanMapper.inserDbrwSelective(record);
+    }
+
+    @Override
+    public long selectCountByGW(CountBean countBean) {
+        long count = tDbrwBeanMapper.selectCountByGW(countBean);
+        return count;
     }
 }

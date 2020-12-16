@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.vanda.tlzbfz.entity.TDbrwBean">
 
     <result column="ID" property="id"     jdbcType="VARCHAR" />
-    <result column="GW" property="gw" jdbcType="VARCHAR" />
+    <result column="GW" property="gw"     jdbcType="VARCHAR" />
     <result column="XM" property="xm"     jdbcType="VARCHAR" />
     <result column="ZT" property="zt"     jdbcType="VARCHAR" />
     <result column="BJCJS" property="bjcjs" jdbcType="VARCHAR" />
@@ -16,11 +16,15 @@
   <sql id="Base_Column_List">
     ID, GW, XM, ZT, BJCJS, WCCS, SYCS, RWBH
   </sql>
-  <select id="getDbrwByRwbh" parameterType="com.vanda.tlzbfz.entity.TDbrwBean" resultMap="BaseResultMap">
+  <select id="getDbrwById" parameterType="com.vanda.tlzbfz.entity.TDbrwBean" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from onion.T_DBRW
-    where RWBH = #{rwbh,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectCountByGW" parameterType="com.vanda.tlzbfz.entity.CountBean" resultType="java.lang.Long">
+    select count(1) from T_DBRW t where t.gw= #{gw,jdbcType=VARCHAR} and t.bjcjs=#{bjcjs,jdbcType=VARCHAR}
   </select>
 
   <insert id="inserDbrwSelective" parameterType="com.vanda.tlzbfz.entity.TDbrwBean">
@@ -101,6 +105,6 @@
       </if>
 
     </set>
-    where RWBH = #{rwbh,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

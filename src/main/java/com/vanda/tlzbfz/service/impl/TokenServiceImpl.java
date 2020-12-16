@@ -24,11 +24,8 @@ public class TokenServiceImpl implements TokenService {
 
 
     @Override
-    public String gettoken(String user_name) {
-        Lgn_user userinfo=tokenDao.selectuser(user_name);
-        TGw gw = gwMapper.selctGw(userinfo.getPki_no());
-        System.out.println("@@"+gw.getGwmc()+gw.getGwdm());
-
+    public String gettoken(String pki_no) {
+        Lgn_user userinfo=tokenDao.selectuser(pki_no);
         SystemLoginUser user = new SystemLoginUser();
         user.setName(userinfo.getReal_name());
         user.setUnitCode(userinfo.getUnit().split("\\|"));

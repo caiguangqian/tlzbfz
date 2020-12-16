@@ -18,12 +18,6 @@ import java.util.Scanner;
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
 public class CodeGenerator {
 
-    */
-/**
-     * <p>
-     * 读取控制台内容
-     * </p>
-     *//*
 
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);

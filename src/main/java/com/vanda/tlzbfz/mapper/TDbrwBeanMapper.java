@@ -1,11 +1,14 @@
 package com.vanda.tlzbfz.mapper;
 
+import com.vanda.tlzbfz.entity.CountBean;
 import com.vanda.tlzbfz.entity.TDbrwBean;
-import com.vanda.tlzbfz.entity.TRwlrBean;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TDbrwBeanMapper {
 
-    TDbrwBean getDbrwByRwbh(String rwbh);
+    TDbrwBean getDbrwById(String id);
     int updateDbrw(TDbrwBean tDbrwBean);
     int inserDbrwSelective(TDbrwBean record);
+    long selectCountByGW(CountBean countBean);
 }

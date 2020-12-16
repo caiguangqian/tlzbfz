@@ -32,6 +32,8 @@ public class VDbrw {
 
     private String zt;
 
+    private String rwbh;
+
     private Date ksrq;
 
     private Date jsrq;

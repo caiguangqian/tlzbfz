@@ -19,7 +19,10 @@
       KSRQ, JSRQ, RWLX,
       RWSM, FBDW, SCWJ
   </sql>
-  <select id="getRwlrByCondition" parameterType="com.vanda.tlzbfz.entity.TRwlrBean" resultMap="BaseResultMap">
+  <delete id="deleteByRwbh" parameterType="string">
+    delete from T_RWLR t where t.rwbh= #{rwbh,jdbcType=VARCHAR}
+  </delete>
+  <select id="getRwlrByCondition" parameterType="string" resultMap="BaseResultMap">
     select
     RWBH, RWJC, YQCS,
     to_char(KSRQ,'yyyy-mm-dd') AS KSRQ,

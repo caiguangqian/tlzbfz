@@ -6,6 +6,8 @@ import com.vanda.tlzbfz.service.TGwService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 岗位表 服务实现类
@@ -20,7 +22,7 @@ public class TGwServiceImpl  implements TGwService {
     @Autowired
     TGwMapper gwMapper;
     @Override
-    public TGw selctGw(String pkno) {
-        return gwMapper.selctGw(pkno);
+    public List<TGw> selctGw() {
+        return gwMapper.selctGw();
     }
 }

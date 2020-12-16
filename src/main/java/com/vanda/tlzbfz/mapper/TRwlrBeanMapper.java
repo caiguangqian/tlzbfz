@@ -1,6 +1,7 @@
 package com.vanda.tlzbfz.mapper;
 
 import com.vanda.tlzbfz.entity.TRwlrBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface TRwlrBeanMapper {
     //编辑
     int updateBySelective(TRwlrBean record);
     //列表
-    List<TRwlrBean>  getRwlrByCondition(TRwlrBean record);
+    List<TRwlrBean>  getRwlrByCondition(@Param("rwbh") String rwbh);
+    int deleteByRwbh(String rwbh);
 
 }

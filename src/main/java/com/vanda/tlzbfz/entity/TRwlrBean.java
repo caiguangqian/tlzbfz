@@ -1,10 +1,12 @@
 package com.vanda.tlzbfz.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class TRwlrBean {
 
     private String rwbh;

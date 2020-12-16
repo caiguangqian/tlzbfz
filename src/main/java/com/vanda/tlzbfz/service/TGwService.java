@@ -2,6 +2,8 @@ package com.vanda.tlzbfz.service;
 
 import com.vanda.tlzbfz.entity.TGw;
 
+import java.util.List;
+
 /**
  * <p>
  * 岗位表 服务类
@@ -11,5 +13,5 @@ import com.vanda.tlzbfz.entity.TGw;
  * @since 2020-12-07
  */
 public interface TGwService  {
-    TGw selctGw(String pkno);
+    List<TGw> selctGw();
 }

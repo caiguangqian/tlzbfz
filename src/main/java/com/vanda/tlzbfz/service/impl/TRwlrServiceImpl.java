@@ -34,8 +34,13 @@ public class TRwlrServiceImpl implements TRwlrService {
     }
 
     @Override
-    public List<TRwlrBean> getRwlrByCondition(TRwlrBean tRwlrBean) {
-        return tRwlrBeanMapper.getRwlrByCondition(tRwlrBean);
+    public List<TRwlrBean> getRwlrByCondition(String rwbh) {
+        return tRwlrBeanMapper.getRwlrByCondition(rwbh);
+    }
+
+    @Override
+    public int deleteByRwbh(String rwbh) {
+        return tRwlrBeanMapper.deleteByRwbh(rwbh);
     }
 
    /* @Override

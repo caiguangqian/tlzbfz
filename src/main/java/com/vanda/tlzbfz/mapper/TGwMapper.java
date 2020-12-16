@@ -4,6 +4,8 @@ package com.vanda.tlzbfz.mapper;
 import com.vanda.tlzbfz.entity.TGw;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  * 岗位表 Mapper 接口
@@ -14,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TGwMapper{
-    TGw selctGw(String pkno);
+    List<TGw> selctGw();
 }

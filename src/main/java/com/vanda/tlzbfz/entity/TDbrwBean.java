@@ -1,8 +1,10 @@
 package com.vanda.tlzbfz.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class TDbrwBean {
 
     private String id;
