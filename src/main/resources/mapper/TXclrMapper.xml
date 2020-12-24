@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanda.tlzbfz.mapper.TXclrMapper">
+    <delete id="deleteByXcbh" parameterType="string">
+      delete from T_XCLR t where t.xcbh= #{xcbh,jdbcType=VARCHAR}
+    </delete>
+    <update id="updateByKey" parameterType="com.vanda.tlzbfz.entity.TXclr">
+        update T_XCLR
+        <set>
+            <if test="rwbh!=null">
+                RWBH=#{rwbh,jdbcType=VARCHAR},
+            </if>
+            <if test="bjcjs!=null">
+                BJCJS=#{bjcjs,jdbcType=VARCHAR},
+            </if>
+            <if test="xcr!=null">
+                XCR=#{xcr,jdbcType=VARCHAR},
+            </if>
+            <if test="jcjs!=null">
+                JCJS=#{jcjs,jdbcType=VARCHAR},
+            </if>
+            <if test="xcrq!=null">
+                XCRQ=to_date(to_char(#{xcrq,jdbcType=DATE},'yyyy-mm-dd'),'yyyy-mm-dd'),
+            </if>
+            <if test="xcms!=null">
+                XCMS=#{xcms,jdbcType=VARCHAR},
+            </if>
+            <if test="xclx!=null">
+                XCLX=#{xclx,jdbcType=VARCHAR},
+            </if>
+            <if test="fkrq!=null">
+                FKRQ=to_date(to_char(#{fkrq,jdbcType=DATE},'yyyy-mm-dd'),'yyyy-mm-dd'),
+            </if>
+            <if test="zgzt!=null">
+                ZGZT=#{zgzt,jdbcType=VARCHAR},
+            </if>
+        </set>
+    </update>
+</mapper>

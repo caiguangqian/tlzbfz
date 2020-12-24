@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanda.tlzbfz.mapper.VDbyhMapper">
+   <!-- <resultMap id="BaseResultMap" type="com.vanda.tlzbfz.entity.VDbyh">
+
+        <result column="YID" property="yid"     jdbcType="VARCHAR" />
+        <result column="BJCJS" property="bjcjs" jdbcType="VARCHAR" />
+        <result column="JCJS" property="jcjs" jdbcType="VARCHAR" />
+        <result column="XCRQ" property="xcrq"     jdbcType="VARCHAR" />
+        <result column="XCR" property="xcr" jdbcType="VARCHAR" />
+        <result column="QY" property="qy" jdbcType="VARCHAR" />
+        <result column="FS" property="fs" jdbcType="VARCHAR" />
+        <result column="YHLX" property="yhlx" jdbcType="VARCHAR" />
+        <result column="YHLB" property="yhlb" jdbcType="VARCHAR" />
+        <result column="YHXM" property="yhxm"     jdbcType="VARCHAR" />
+        <result column="YHJBQK" property="yhjbqk" jdbcType="VARCHAR" />
+        <result column="XCLX" property="xclx" jdbcType="VARCHAR" />
+        <result column="YHZT" property="yhzt" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    YID,BJCJS,JCJS, XCRQ, XCR, QY, FS, YHLX, YHLB, YHXM,YHJBQK,XCLX,YHZT
+    </sql>-->
+
+    <select id="selectDbyhByCondition" parameterType="com.vanda.tlzbfz.entity.VDbyh" resultType="com.vanda.tlzbfz.entity.VDbyh">
+        select
+        YID,BJCJS,JCJS, --to_char(XCRQ,'yyyy-mm-dd') AS
+        XCRQ, XCR, QY, FS, YHLX, YHLB, YHXM,YHJBQK,XCLX,YHZT
+
+        from onion.V_DBYH
+        where 1=1
+        <if test="yid != null">
+            and YID = #{yid,jdbcType=VARCHAR}
+        </if>
+        <if test="bjcjs != null">
+            and BJCJS = #{bjcjs,jdbcType=VARCHAR}
+        </if>
+        <if test="jcjs != null">
+            and JCJC = #{jcjs,jdbcType=VARCHAR}
+        </if>
+        <if test="ksrq != null">
+            and xcrq &gt;= TO_DATE(#{ksrq,jdbcType=VARCHAR}, 'YYYY-MM-DD')
+        </if>
+        <if test="jsrq != null">
+            and xcrq &lt;= TO_DATE(#{jsrq,jdbcType=VARCHAR}, 'YYYY-MM-DD HH24:MI:SS')
+        </if>
+        <if test="xcr != null">
+            and  XCR = #{xcr,jdbcType=VARCHAR}
+        </if>
+        <if test="qy != null">
+            QY = #{qy,jdbcType=VARCHAR}
+        </if>
+        <if test="fs != null">
+            and FS = #{fs,jdbcType=VARCHAR}
+        </if>
+        <if test="yhlx != null">
+            and YHLX = #{yhlx,jdbcType=VARCHAR}
+        </if>
+        <if test="yhlb != null">
+            and YHLB = #{yhlb,jdbcType=VARCHAR}
+        </if>
+        <if test="yhzt != null">
+            and YHZT = #{yhzt,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+</mapper>

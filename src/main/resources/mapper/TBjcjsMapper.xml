@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanda.tlzbfz.mapper.TBjcjsMapper">
+
+    <select id="selectBjcjs" resultType="com.vanda.tlzbfz.entity.TBjcjs" parameterType="string">
+        select * from t_bjcjs where jsdm = #{jsdm,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectJslike" resultType="com.vanda.tlzbfz.entity.TBjcjs" parameterType="string">
+        select * from t_bjcjs where jsdm like #{jsdm,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

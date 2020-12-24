@@ -1,39 +1,19 @@
 package com.vanda.tlzbfz.common.util;
 
+import lombok.Data;
+
+@Data
 public class ResultMsg<T> {
 
     private String code;
     private String message;
-    private T date;
+    private T data;
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getDate() {
-        return date;
-    }
-
-    public void setDate(T date) {
-        this.date = date;
-    }
-
-    public ResultMsg(String code, String message, T date) {
+    public ResultMsg(String code, String message, T data) {
         this.code = code;
         this.message = message;
-        this.date = date;
+        this.data = data;
     }
 
     public ResultMsg() {

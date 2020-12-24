@@ -30,9 +30,8 @@ public class TokenController {
     private TokenService tokenService;
     @ApiOperation(value = "获取token", httpMethod = "GET")
     @ApiImplicitParam(name = "pk_no", value = "用户名", paramType = "query", required = true, dataType = "String")
-    @RequestMapping(value = "/gettoken",method= RequestMethod.GET)
+    @RequestMapping(value = "/token",method= RequestMethod.GET)
     public String gettoken(String pk_no) throws Exception{
-        //log.debug("user_name");
         return tokenService.gettoken(pk_no);
     }
 

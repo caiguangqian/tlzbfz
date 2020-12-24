@@ -45,7 +45,7 @@ public class Swagger2Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("任务发布辅助") //设置文档的标题
+                .title("值班辅助系统") //设置文档的标题
                 .description("发布辅助服务 API 接口文档") // 设置文档的描述
                 .version("1.0") // 设置文档的版本信息-> 1.0.0 Version information
                 .build();

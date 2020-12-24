@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanda.tlzbfz.mapper.TDbyhMapper">
+
+    <delete id="deleteBydbyh" parameterType="string">
+        delete from T_DBYH t where t.yhbh= #{yhbh,jdbcType=VARCHAR}
+    </delete>
+    <update id="updateDbyhZt" parameterType="com.vanda.tlzbfz.entity.TDbyh">
+        update T_DBYH set
+        yhlx=#{yhlx,jdbcType=VARCHAR},
+        yhlb=#{yhlb,jdbcType=VARCHAR},
+        yhxm=#{yhxm,jdbcType=VARCHAR},
+        yhjbqk=#{yhjbqk,jdbcType=VARCHAR},
+        qy=#{qy,jdbcType=VARCHAR},
+        fs=#{fs,jdbcType=VARCHAR},
+        yhzt=#{yhzt,jdbcType=VARCHAR},
+        xcbh=#{xcbh,jdbcType=VARCHAR}
+
+        where yhbh=#{yhbh,jdbcType=VARCHAR}
+
+    </update>
+</mapper>
