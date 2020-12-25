@@ -37,4 +37,5 @@ public class VDbyh {
     private String yhjbqk;
     private String xclx;
     private String yhzt;
+    private String xcbh;
 }

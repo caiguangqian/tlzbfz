@@ -2,7 +2,9 @@ package com.vanda.tlzbfz;
 
 import com.vanda.tlzbfz.entity.TDbyh;
 import com.vanda.tlzbfz.entity.TDh;
+import com.vanda.tlzbfz.entity.TXclr;
 import com.vanda.tlzbfz.mapper.TDbyhMapper;
+import com.vanda.tlzbfz.mapper.TXclrMapper;
 import com.vanda.tlzbfz.service.TDbyhService;
 import com.vanda.tlzbfz.service.TDhService;
 import org.junit.jupiter.api.Test;
@@ -21,14 +23,8 @@ class TlzbfzApplicationTests {
     private TDhService dhService;
     @Autowired
     private TDbyhMapper dbyhMapper;
-
-    @Test
-    void contextLoads() {
-        String id = String.valueOf(System.currentTimeMillis());
-        System.out.println(id);
-        System.out.println(id.substring(6,id.length()));
-        //record.setRwbh(id.substring(id.lastIndexOf(0,2)));
-    }
+    @Autowired
+    private TXclrMapper xclrMapper;
 
     @Test
     public void test(){

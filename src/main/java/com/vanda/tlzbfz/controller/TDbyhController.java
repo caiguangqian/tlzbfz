@@ -59,24 +59,30 @@ public class TDbyhController {
         return new ResultMsg("200","查询数据成功",list);
     }
 
-   /* @ApiOperation(value = "查询本岗位待办隐患记录数", httpMethod = "GET")
+    @ApiOperation(value = "查询本岗位待办隐患记录数", httpMethod = "GET")
     @GetMapping("/dbyhCount")
     public ResultMsg getAllDhyhCounts(@RequestHeader("accept_token") String accept_token){
         SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         String[] unit = user.getUnitCode();
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
-        TDbyhExtenBean dbyhExtenBean = new TDbyhExtenBean();
-        dbyhExtenBean.setBjcjs(bjcjs.getJsdm());
         //查询某个单位待办巡查数
-        //根据待办巡查数查询每个巡查id下的待办隐患数
+        TXclr xclr = new TXclr();
+        xclr.setBjcjs(bjcjs.getJsmc());
+        //int count = xclrService.selectCountByExample(xclr);
 
-        long count = dbyhService.selectCountByXcbh(dbyhExtenBean);
-        List<VDbyh> list=null;
-        if(list==null){
-            return  new ResultMsg("400","查询数据为空",null);
+        //查询本监所所有巡查记录
+        List<TXclr> list = xclrService.selectAllByJcjs(xclr);
+        //根据待办巡查数查询每个巡查id下的待办隐患数
+        int sum=0;
+        for (int i = 0; i < list.size(); i++) {
+            TDbyh dbyh = new TDbyh();
+            dbyh.setXcbh(list.get(i).getXcbh());
+            long count1 = dbyhService.selectCountByXcbh(dbyh);
+            sum+=count1;
         }
-        return new ResultMsg("200","查询数据成功",list);
-    }*/
+
+        return new ResultMsg("200","查询数据成功",sum);
+    }
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -105,9 +111,10 @@ public class TDbyhController {
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    /*@Transactional(rollbackFor = Exception.class)
     @ApiOperation(value = "更新待办隐患状态接口", httpMethod = "PUT")
-    @PutMapping("/dbyh")
+    @PutMapping("/dbyh")*/
+    /*
     public  ResultMsg updateDbyhZt(@RequestBody String json,@RequestHeader("accept_token") String accept_token){
         try {
             Gson gson = gsonUtil.createGson();
@@ -134,6 +141,6 @@ public class TDbyhController {
             rMsg.setMessage("服务器异常！");
             return rMsg;
         }
-    }
+    }*/
 
 }

@@ -36,4 +36,77 @@
             </if>
         </set>
     </update>
+    <insert id="insertXclrSelective" parameterType="com.vanda.tlzbfz.entity.TXclr">
+        insert into T_XCLR
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="xcbh != null">
+                XCBH,
+            </if>
+            <if test="rwbh != null">
+                RWBH,
+            </if>
+            <if test="bjcjs != null">
+                BJCJS,
+            </if>
+            <if test="xcr != null">
+                XCR,
+            </if>
+            <if test="jcjs != null">
+                JCJS,
+            </if>
+            <if test="xcrq != null">
+                XCRQ,
+            </if>
+            <if test="xcms != null">
+                XCMS,
+            </if>
+            <if test="xclx != null">
+                XCLX,
+            </if>
+            <if test="scwj != null">
+                SCWJ,
+            </if>
+            <if test="fkrq != null">
+                FKRQ,
+            </if>
+            <if test="zgzt != null">
+                ZGZT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="xcbh != null">
+                #{xcbh,jdbcType=VARCHAR},
+            </if>
+            <if test="rwbh != null">
+                #{rwbh,jdbcType=VARCHAR},
+            </if>
+            <if test="bjcjs != null">
+                #{bjcjs,jdbcType=VARCHAR},
+            </if>
+            <if test="xcr != null">
+                #{xcr,jdbcType=VARCHAR},
+            </if>
+            <if test="jcjs != null">
+                #{jcjs,jdbcType=VARCHAR},
+            </if>
+            <if test="xcrq != null">
+                to_date(to_char(#{xcrq,jdbcType=DATE},'yyyy-mm-dd'),'yyyy-mm-dd'),
+            </if>
+            <if test="xcms != null">
+                #{xcms,jdbcType=VARCHAR},
+            </if>
+            <if test="xclx != null">
+                #{xclx,jdbcType=VARCHAR},
+            </if>
+            <if test="scwj != null">
+                #{scwj,jdbcType=BLOB},
+            </if>
+            <if test="fkrq != null">
+                to_date(to_char(#{fkrq,jdbcType=DATE},'yyyy-mm-dd'),'yyyy-mm-dd'),
+            </if>
+            <if test="zgzt != null">
+                #{zgzt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

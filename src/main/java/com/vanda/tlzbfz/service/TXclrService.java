@@ -1,5 +1,6 @@
 package com.vanda.tlzbfz.service;
 
+import com.vanda.tlzbfz.entity.TBjcjs;
 import com.vanda.tlzbfz.entity.TXclr;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface TXclrService{
     int insertSelective(TXclr tXclr);
     int deleteByXcbh(String xcbh);
     int updateByXcbh(TXclr xclr);
-    List<TXclr> queryXclrList();
+    List<TXclr> queryXclrList(TBjcjs bjcjs);
+    List<TXclr> selectAllByJcjs(TXclr xclr);
+    int selectCountByExample(TXclr xclr);
 }

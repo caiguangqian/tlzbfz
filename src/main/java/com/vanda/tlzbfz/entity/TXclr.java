@@ -8,6 +8,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -51,7 +52,8 @@ public class TXclr{
     /**
      * 巡查日期
      */
-    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    /*@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")*/
     private Date xcrq;
 
     /**

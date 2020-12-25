@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository;
 public interface TXclrMapper extends TkMapper<TXclr>{
     int deleteByXcbh(String xcbh);
     int updateByKey(TXclr xclr);
+    int insertXclrSelective(TXclr tXclr);
 }
