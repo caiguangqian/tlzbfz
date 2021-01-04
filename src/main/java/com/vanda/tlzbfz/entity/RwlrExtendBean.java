@@ -13,5 +13,5 @@ import java.util.List;
  **/
 @Data
 public class RwlrExtendBean extends TRwlrBean{
-    private List<TDbrwBean> tdbrwBeans;
+    private List<TDbrw> tdbrwBeans;
 }

@@ -34,6 +34,9 @@
     <if test="rwbh != null">
       and RWBH = #{rwbh,jdbcType=VARCHAR}
     </if>
+    <if test="fbdw != null">
+      and FBDW = #{fbdw,jdbcType=VARCHAR}
+    </if>
   </select>
 
   <insert id="insertSelective" parameterType="com.vanda.tlzbfz.entity.TRwlrBean">

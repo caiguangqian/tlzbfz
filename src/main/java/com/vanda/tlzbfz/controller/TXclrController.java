@@ -2,16 +2,12 @@ package com.vanda.tlzbfz.controller;
 
 
 import com.google.gson.Gson;
-import com.vanda.tlzbfz.common.util.GsonUtil;
-import com.vanda.tlzbfz.common.util.MapperUtils;
-import com.vanda.tlzbfz.common.util.RedisUtil;
-import com.vanda.tlzbfz.common.util.ResultMsg;
+import com.vanda.tlzbfz.common.util.*;
 import com.vanda.tlzbfz.entity.*;
 import com.vanda.tlzbfz.service.TBjcjsService;
 import com.vanda.tlzbfz.service.TDbyhService;
 import com.vanda.tlzbfz.service.TXclrService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -71,9 +66,9 @@ public class TXclrController {
                 BeanUtils.copyProperties(record,xclr);
                 ResultMsg resultMsg=new ResultMsg();
                 TBjcjs jcjs = bjcjsService.selectBjcjs(unit[0]);
-                xclr.setJcjs(jcjs.getJsmc());
+                xclr.setJcjs(jcjs.getJsdm());
                 TBjcjs bjcjs = bjcjsService.selectBjcjs(xclr.getBjcjs());
-                xclr.setBjcjs(bjcjs.getJsmc());
+                xclr.setBjcjs(bjcjs.getJsdm());
                 String id = String.valueOf(System.currentTimeMillis());
                 xclr.setXcbh(id);
                 int result = xclrService.insertSelective(xclr);
@@ -114,8 +109,20 @@ public class TXclrController {
     @ApiOperation(value = "根据待办巡查编号删除一条记录接口", httpMethod = "DELETE")
     @DeleteMapping("/xclr")
     @Transactional(rollbackFor = Exception.class)
-    public ResultMsg deleteByxcbh(@RequestParam("xcbh") String xcbh){
+    public ResultMsg deleteByxcbh(@RequestParam("xcbh") String xcbh,@RequestHeader("accept_token") String accept_token){
         try{
+            SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
+            String[] unit = user.getUnitCode();
+            TXclr xclr = new TXclr();
+            xclr.setXcbh(xcbh);
+            ResultMsg rMsg=new ResultMsg();
+            List<TXclr> list = xclrService.selectAllByJcjs(xclr);
+            if(unit[0].equals(list.get(0).getJcjs())==false){
+                rMsg.setCode("404");
+                rMsg.setMessage("没有权限删除记录！");
+                return rMsg;
+            }
+
             //先删除关联的待办隐患信息，再执行删除待办巡查操作
             VDbyh dbyh = new VDbyh();
             dbyh.setXcbh(xcbh);
@@ -124,7 +131,7 @@ public class TXclrController {
                 dbyhService.deleteBydbyh(dbyhs.get(i).getYid());
             }
             int xclrBean = xclrService.deleteByXcbh(xcbh);
-            ResultMsg rMsg=new ResultMsg();
+
             if(xclrBean<=0){
                 rMsg.setCode("400");
                 rMsg.setMessage("删除巡查记录为空");
@@ -152,10 +159,11 @@ public class TXclrController {
             ResultMsg rMsg=new ResultMsg();
             SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
             String[] unit = user.getUnitCode();
-            TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
+            //TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
             Gson gson = gsonUtil.createGson();
             TXclr record = gson.fromJson(json,TXclr.class);
-            if(bjcjs.getJsmc().equals(record.getJcjs())==false){
+            TBjcjs bjcjs = bjcjsService.selectBjcjs(record.getJcjs());
+            if(unit[0].equals(bjcjs.getJsdm())==false){
                 rMsg.setCode("404");
                 rMsg.setMessage("没有权限确认完成!");
                 return rMsg;
@@ -200,17 +208,22 @@ public class TXclrController {
 
     @ApiOperation(value = "查询所有巡查录入记录", httpMethod = "GET")
     @GetMapping("/xclrs")
-    //@ApiImplicitParam(name="type",value="0代表所有记录 1代表被巡查监所或发布监所的记录",paramType = "query", required = true, dataType = "String")
     public ResultMsg queryXclrList(@RequestHeader("accept_token") String accept_token) throws Exception {
         SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         String[] unit = user.getUnitCode();
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
+        String fbdw = bjcjs.getJsmc();
         List<TXclr> list = xclrService.queryXclrList(bjcjs);
         if(list==null){
             return  new ResultMsg("400","录入任务查询为空",null);
         }
-        String json = MapperUtils.obj2json(list);
-        return new ResultMsg("200","巡查记录查询成功",list);
+        List<TXclr> tXclrs = ListUtils.deepCopy(list);
+        for (int i = 0; i < tXclrs.size(); i++) {
+            TBjcjs bjcdw =bjcjsService.selectBjcjs(list.get(i).getBjcjs());
+            tXclrs.get(i).setJcjs(fbdw);
+            tXclrs.get(i).setBjcjs(bjcdw.getJsmc());
+        }
+        return new ResultMsg("200","巡查记录查询成功",tXclrs);
     }
 
 }

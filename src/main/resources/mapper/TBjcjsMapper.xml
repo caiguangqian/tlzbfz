@@ -3,7 +3,7 @@
 <mapper namespace="com.vanda.tlzbfz.mapper.TBjcjsMapper">
 
     <select id="selectBjcjs" resultType="com.vanda.tlzbfz.entity.TBjcjs" parameterType="string">
-        select * from t_bjcjs where jsdm = #{jsdm,jdbcType=VARCHAR}
+        select * from t_bjcjs where jsdm = #{jsdm,jdbcType=VARCHAR} or jsdm = #{jsmc,jdbcType=VARCHAR}
     </select>
 
     <select id="selectJslike" resultType="com.vanda.tlzbfz.entity.TBjcjs" parameterType="string">

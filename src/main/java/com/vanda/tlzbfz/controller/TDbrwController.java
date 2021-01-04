@@ -3,6 +3,7 @@ package com.vanda.tlzbfz.controller;
 
 import com.google.gson.Gson;
 import com.vanda.tlzbfz.common.util.GsonUtil;
+import com.vanda.tlzbfz.common.util.ListUtils;
 import com.vanda.tlzbfz.common.util.RedisUtil;
 import com.vanda.tlzbfz.common.util.ResultMsg;
 import com.vanda.tlzbfz.entity.*;
@@ -15,8 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,11 +44,10 @@ public class TDbrwController {
     //查询列表  条件查询 都使用该接口
     @ApiOperation(value = "组合条件查询自己岗位的待办任务,cxlx为0默认查询自己岗位，其他根据条件查询所有", httpMethod = "GET")
     @GetMapping("/dbrws")
-    public ResultMsg getDbrwByCondition(Dbrw vDbrw,@RequestHeader("accept_token") String accept_token){
+    public ResultMsg getDbrwByCondition(Dbrw vDbrw,@RequestHeader("accept_token") String accept_token) throws IOException, ClassNotFoundException {
         SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         if("0".equals(vDbrw.getCxlx())){
             vDbrw.setGw(user.getPost());
-
             String[] unit = user.getUnitCode();
             TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
             //狗日的换行符
@@ -54,10 +57,19 @@ public class TDbrwController {
             //System.out.println("@@@"+vDbrw.getGwmc()+vDbrw.getBjcjs());
 
             List<VDbrw> vDbrws = vDbrwService.queryDbrwByCondition(vDbrw);
+            //System.out.println("@@"+vDbrws);
+            //list深度拷贝
+            List<VDbrw> list = ListUtils.deepCopy(vDbrws);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setBjcjs(bjcjs.getJsmc());
+                TBjcjs fbdw = bjcjsService.selectBjcjs(list.get(i).getFbdw());
+                list.get(i).setFbdw(fbdw.getJsmc());
+            }
+            //System.out.println("@@@"+list);
             if(vDbrws==null){
                 return  new ResultMsg("400","查询数据为空",null);
             }
-            return new ResultMsg("200","查询数据成功",vDbrws);
+            return new ResultMsg("200","查询数据成功",list);
         }else{
             List<VDbrw> vDbrws1 = vDbrwService.queryDbrwByCondition(vDbrw);
             if(vDbrws1==null){
@@ -94,15 +106,15 @@ public class TDbrwController {
     public ResultMsg updateDbrw(@RequestBody String json,@RequestHeader("accept_token") String accept_token){
         try {
             Gson gson = gsonUtil.createGson();
-            TDbrwBean tDbrwBean = gson.fromJson(json , TDbrwBean.class);
+            TDbrw tDbrwBean = gson.fromJson(json , TDbrw.class);
             //从缓存中获取用户信息
             SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
 
             ResultMsg rMsg=new ResultMsg();
             //通过id查询该条待办任务
-            TDbrwBean dbrwByRwbh = vDbrwService.getDbrwById(tDbrwBean.getId());
+            TDbrw dbrwByRwbh = vDbrwService.getDbrwById(tDbrwBean.getId());
             if(dbrwByRwbh!=null){
-                TDbrwBean dbrwBean = new TDbrwBean();
+                TDbrw dbrwBean = new TDbrw();
                 //设置更新确认完成任务的人
                 dbrwByRwbh.setXm(user.getName());
                 dbrwByRwbh.setWccs(dbrwByRwbh.getWccs()+1);
@@ -114,7 +126,7 @@ public class TDbrwController {
                 vDbrwService.updateDbrw(dbrwByRwbh);
                 rMsg.setCode("200");
                 rMsg.setMessage("待办任务更新成功");
-                rMsg.setData(dbrwByRwbh);
+                //rMsg.setData(dbrwByRwbh);
             }else {
                 rMsg.setCode("201");
                 rMsg.setMessage("待办任务更新失败");

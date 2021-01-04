@@ -1,7 +1,6 @@
 package com.vanda.tlzbfz.controller;
 
 
-import com.google.gson.Gson;
 import com.vanda.tlzbfz.common.util.GsonUtil;
 import com.vanda.tlzbfz.common.util.RedisUtil;
 import com.vanda.tlzbfz.common.util.ResultMsg;
@@ -51,7 +50,10 @@ public class TDbyhController {
     @ApiOperation(value = "根据条件查询待办隐患池,台账功能", httpMethod = "GET")
     @GetMapping("/dbyhs")
     public ResultMsg getAllDhyh(VDbyh dbyh, @RequestHeader("accept_token") String accept_token){
-
+        SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
+        String[] unit = user.getUnitCode();
+        TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
+        dbyh.setBjcjs(bjcjs.getJsdm());
         List<VDbyh> list = dbyhService.selectDbyhByCondition(dbyh);
         if(list==null){
             return  new ResultMsg("400","查询数据为空",null);
@@ -67,7 +69,7 @@ public class TDbyhController {
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
         //查询某个单位待办巡查数
         TXclr xclr = new TXclr();
-        xclr.setBjcjs(bjcjs.getJsmc());
+        xclr.setBjcjs(bjcjs.getJsdm());
         //int count = xclrService.selectCountByExample(xclr);
 
         //查询本监所所有巡查记录

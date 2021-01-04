@@ -8,7 +8,8 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VDbrw {
+public class VDbrw implements java.io.Serializable{
+    private static final long serialVersionUID = -8113202283747834696L;
 
     private String id;
 

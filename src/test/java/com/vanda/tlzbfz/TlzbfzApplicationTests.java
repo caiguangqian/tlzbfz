@@ -4,6 +4,7 @@ import com.vanda.tlzbfz.entity.TDbyh;
 import com.vanda.tlzbfz.entity.TDh;
 import com.vanda.tlzbfz.entity.TXclr;
 import com.vanda.tlzbfz.mapper.TDbyhMapper;
+import com.vanda.tlzbfz.mapper.TUserGwMapper;
 import com.vanda.tlzbfz.mapper.TXclrMapper;
 import com.vanda.tlzbfz.service.TDbyhService;
 import com.vanda.tlzbfz.service.TDhService;
@@ -25,6 +26,8 @@ class TlzbfzApplicationTests {
     private TDbyhMapper dbyhMapper;
     @Autowired
     private TXclrMapper xclrMapper;
+    @Autowired
+    private TUserGwMapper userGwMapper;
 
     @Test
     public void test(){
@@ -38,6 +41,11 @@ class TlzbfzApplicationTests {
             System.out.println(dbyh1.getYhbh()+":"+dbyh1.getYhxm());
         }
 
+    }
+
+    @Test
+    public void test01(){
+        System.out.println("@@"+userGwMapper.selectAll());
     }
 
 

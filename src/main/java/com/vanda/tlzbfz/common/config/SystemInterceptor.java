@@ -46,7 +46,7 @@ public class SystemInterceptor  implements HandlerInterceptor {
                 }else{
                     ResultData resultData=new ResultData(CodeEnum.EXTOKEN.getCm(),null);
                     String resultjson=new Gson().toJson(resultData);
-                    response.setStatus(460);
+                    response.setStatus(401);
                     PrintWriter out = response.getWriter();
                     out.println(resultjson);
                     out.close();

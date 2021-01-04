@@ -26,10 +26,5 @@ public class TGw implements Serializable {
      */
     private String gwmc;
 
-    /**
-     * 用户身份证
-     */
-    private String yhSfzh;
-
 
 }

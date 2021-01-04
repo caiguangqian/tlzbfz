@@ -1,7 +1,7 @@
 package com.vanda.tlzbfz.bean;
 
 public enum CodeEnum {
-    SUCCESS("200","成功"), UNAUTH("400","失败"), EXTOKEN("460","token过期");
+    SUCCESS("200","成功"), UNAUTH("400","失败"), EXTOKEN("401","token过期");
     private String code;
     private String msg;
 

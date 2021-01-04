@@ -5,7 +5,6 @@
     <resultMap id="BaseResultMap" type="com.vanda.tlzbfz.entity.TGw">
         <result column="GWDM" property="gwdm"  javaType="java.lang.String" jdbcType="VARCHAR" />
         <result column="GWMC" property="gwmc" javaType="java.lang.String" jdbcType="VARCHAR" />
-        <result column="YH_SFZH" property="yhSfzh" javaType="java.lang.String" jdbcType="VARCHAR" />
     </resultMap>
     <select id="selctGw" parameterType="java.lang.String" resultType="com.vanda.tlzbfz.entity.TGw">
         select t.* from T_GW t

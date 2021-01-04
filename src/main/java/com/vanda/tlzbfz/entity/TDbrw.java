@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TDbrwBean {
+public class TDbrw {
 
     private String id;
 

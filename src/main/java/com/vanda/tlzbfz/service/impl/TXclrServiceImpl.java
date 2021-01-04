@@ -42,8 +42,8 @@ public class TXclrServiceImpl implements TXclrService {
     public List<TXclr> queryXclrList(TBjcjs bjcjs) {
         Example example = new Example(TXclr.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("jcjs",bjcjs.getJsmc());
-        criteria.orEqualTo("bjcjs",bjcjs.getJsmc());
+        criteria.andEqualTo("jcjs",bjcjs.getJsdm());
+        //criteria.orEqualTo("bjcjs",bjcjs.getJsdm());
         return xclrMapper.selectByExample(example);
     }
 

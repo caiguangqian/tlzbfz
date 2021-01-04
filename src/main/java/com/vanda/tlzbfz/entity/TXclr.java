@@ -20,9 +20,9 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Data
 @NoArgsConstructor
-public class TXclr{
+public class TXclr implements Serializable{
 
-   // private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 巡查编号
