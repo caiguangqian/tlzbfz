@@ -16,4 +16,5 @@ public interface TBjcjsService{
 
     TBjcjs selectBjcjs(String jsdm);
     List<TBjcjs> selectJslike(String jsl);
+    List<TBjcjs> selectAllJs();
 }

@@ -32,18 +32,33 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String gettoken(String pki_no) {
-        Example example = new Example(TUserGw.class);
+        /*Example example = new Example(TUserGw.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pk_no",pki_no);
         List<TUserGw> tUserGws = userGwMapper.selectByExample(example);
-        TUserGw userGw = tUserGws.get(0);
+        TUserGw userGw = tUserGws.get(0);*/
         Lgn_user userinfo=tokenDao.selectuser(pki_no);
         SystemLoginUser user = new SystemLoginUser();
         user.setName(userinfo.getReal_name());
         user.setUnitCode(userinfo.getUnit().split("\\|"));
-        user.setPost(userGw.getGwdm());
         user.setCardNumber(userinfo.getPki_no());
+        user.setGw(userinfo.getGw());
+        Example example1 = new Example(TUserGw.class);
+        Example.Criteria criteria1 = example1.createCriteria();
+        criteria1.andEqualTo("pk_no",pki_no);
+        List<TUserGw> list = userGwMapper.selectByExample(example1);
+
+        if (list.size()<=0){
+            String rediskey="_"+DateUtils.getDateRandom()+"_"+user.getUnitCode()[0];
+            if(redisUtil.set(rediskey,user)){
+                redisUtil.expire(rediskey,86400);
+                return rediskey;
+            }
+        }
+        user.setPost(list.get(0).getGwdm());
         String rediskey=DateUtils.getDateRandom()+"_"+user.getUnitCode()[0];
+
+
         if(redisUtil.set(rediskey,user)){
             redisUtil.expire(rediskey,86400);
             return rediskey;

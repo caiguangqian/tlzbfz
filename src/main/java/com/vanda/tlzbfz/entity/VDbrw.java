@@ -19,6 +19,8 @@ public class VDbrw implements java.io.Serializable{
 
     private String gwmc;
 
+    private String gwdm;
+
     private String xm;
 
     private String rwsm;
@@ -40,5 +42,7 @@ public class VDbrw implements java.io.Serializable{
     private Date jsrq;
 
     private String fbdw;
+
+    //private String isGly;
 
 }

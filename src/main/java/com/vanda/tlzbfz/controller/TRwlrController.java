@@ -2,15 +2,15 @@ package com.vanda.tlzbfz.controller;
 
 
 import com.google.gson.Gson;
-import com.vanda.tlzbfz.common.util.GsonUtil;
-import com.vanda.tlzbfz.common.util.RedisUtil;
-import com.vanda.tlzbfz.common.util.ResultMsg;
+import com.vanda.tlzbfz.common.util.*;
 import com.vanda.tlzbfz.entity.*;
 import com.vanda.tlzbfz.service.TBjcjsService;
+import com.vanda.tlzbfz.service.TGwService;
 import com.vanda.tlzbfz.service.TRwlrService;
 import com.vanda.tlzbfz.service.VDbrwService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -19,8 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Api(value = "任务录入接口")
 @RestController
@@ -37,6 +40,8 @@ public class TRwlrController {
     private RedisUtil redisUtil;
     @Autowired
     private TBjcjsService bjcjsService;
+    @Autowired
+    private TGwService gwService;
 
     private static final Logger log = LoggerFactory.getLogger(TRwlrController.class);
 
@@ -51,15 +56,17 @@ public class TRwlrController {
             TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
             Gson gson = gsonUtil.createGson();
             RwlrExtendBean record = gson.fromJson(json,RwlrExtendBean.class);
-            //获取前端传过来的代办任务
-            List<TDbrw> list = record.getTdbrwBeans();
+            List<String> list = record.getGws();
+             //获取前端传过来的代办任务
+            //List<TDbrw> list = record.getTdbrwBeans();
 
+            //String[] list = record.getGws().split(";");
             //获取前端传过来的录入bean类
             TRwlrBean rwlrBean = new TRwlrBean();
             BeanUtils.copyProperties(record,rwlrBean);
-
+            Random random = new Random();
             ResultMsg resultMsg=new ResultMsg();
-            String id = String.valueOf(System.currentTimeMillis());
+            String id = String.valueOf(random.nextInt(3)+System.currentTimeMillis());
             rwlrBean.setRwbh(id.substring(6,id.length()));
             rwlrBean.setFbdw(bjcjs.getJsdm());
             int result = tRwlrService.insertSelective(rwlrBean);
@@ -67,14 +74,13 @@ public class TRwlrController {
             if(list.size()>0){
                 for (int i=0;i<list.size();i++){
                     TDbrw dbrwBean = new TDbrw();
-                    dbrwBean.setId(String.valueOf(System.currentTimeMillis()));
-                    dbrwBean.setXm(list.get(i).getXm());
+                    dbrwBean.setId(String.valueOf(random.nextInt(3)+System.currentTimeMillis()));
                     dbrwBean.setRwbh(rwlrBean.getRwbh());
-                    dbrwBean.setBjcjs(list.get(i).getBjcjs());
+                    dbrwBean.setBjcjs(record.getBjcjs());
                     dbrwBean.setZt("0");
                     dbrwBean.setWccs((long) 0);
                     dbrwBean.setSycs(rwlrBean.getYqcs());
-                    dbrwBean.setGw(list.get(i).getGw());
+                    dbrwBean.setGw(list.get(i));
                     vDbrwService.inserDbrwSelective(dbrwBean);
                 }
             }
@@ -181,12 +187,41 @@ public class TRwlrController {
     //录入列表  条件查询  都用该接口
     @ApiOperation(value = "录入查询接口，传参为空查询所有记录，传入任务编号查询一条记录", httpMethod = "GET")
     @GetMapping("/rwlrs")
-    public ResultMsg queryRwlrList(String rwbh,@RequestHeader("accept_token") String accept_token){
+    public ResultMsg queryRwlrList(String rwbh,@RequestHeader("accept_token") String accept_token) throws IOException, ClassNotFoundException {
         SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         String[] unit = user.getUnitCode();
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
-        String jsmc = bjcjs.getJsdm();
-        List<TRwlrBean> list = tRwlrService.getRwlrByCondition(jsmc,rwbh);
+        String jsdm = bjcjs.getJsdm();
+        List<TRwlrBean> list1 = tRwlrService.getRwlrByCondition(jsdm,rwbh);
+        List<RwlrExtendBean> list2 = new ArrayList<>();
+        for(int i=0;i<list1.size();i++){
+            RwlrExtendBean rwlrExtendBean = new RwlrExtendBean();
+            BeanUtils.copyProperties(list1.get(i),rwlrExtendBean);
+            List<TDbrw> tDbrws = vDbrwService.selectByRwbh(list1.get(i).getRwbh());
+
+            List<String> gws = new ArrayList<>();
+            for (int j = 0; j < tDbrws.size(); j++) {
+                rwlrExtendBean.setBjcjs(tDbrws.get(j).getBjcjs());
+                gws.add(tDbrws.get(j).getGw());
+            }
+
+            rwlrExtendBean.setGws(gws);
+            list2.add(rwlrExtendBean);
+        }
+
+        List<RwlrExtendBean> list = ListUtils.deepCopy(list2);
+        for(int i=0;i<list.size();i++){
+            list.get(i).setFbdw(bjcjs.getJsmc());
+            TBjcjs bjcjs1 = bjcjsService.selectBjcjs(list.get(i).getBjcjs());
+            list.get(i).setBjcjs(bjcjs1.getJsmc());
+            List<String> list3 = new ArrayList<>();
+            int size = list.get(i).getGws().size();
+            for (int j = 0; j < size; j++) {
+                TGw gw = gwService.selectBygwdm(list.get(i).getGws().get(j));
+                list3.add(gw.getGwmc());
+            }
+            list.get(i).setGws(list3);
+        }
         if(list==null){
             return  new ResultMsg("400","录入任务查询为空",null);
         }

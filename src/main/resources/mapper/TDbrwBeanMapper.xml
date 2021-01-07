@@ -24,7 +24,7 @@
   </select>
 
   <select id="selectCountByGW" parameterType="com.vanda.tlzbfz.entity.CountBean" resultType="java.lang.Long">
-    select count(1) from T_DBRW t where t.gw= #{gw,jdbcType=VARCHAR} and t.bjcjs=#{bjcjs,jdbcType=VARCHAR}
+    select count(1) from T_DBRW t where t.gw= #{gw,jdbcType=VARCHAR} and t.bjcjs=#{bjcjs,jdbcType=VARCHAR} and t.zt=#{zt,jdbcType=VARCHAR}
   </select>
 
   <insert id="inserDbrwSelective" parameterType="com.vanda.tlzbfz.entity.TDbrw">

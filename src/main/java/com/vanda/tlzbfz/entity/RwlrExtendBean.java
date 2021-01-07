@@ -13,5 +13,8 @@ import java.util.List;
  **/
 @Data
 public class RwlrExtendBean extends TRwlrBean{
-    private List<TDbrw> tdbrwBeans;
+    //private String gws;
+    private String bjcjs;
+    private List<String> gws;
+    //private List<TDbrw> tdbrwBeans;
 }

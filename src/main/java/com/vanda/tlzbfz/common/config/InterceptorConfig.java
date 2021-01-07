@@ -1,10 +1,15 @@
 package com.vanda.tlzbfz.common.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.text.SimpleDateFormat;
 
 //@Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
@@ -44,7 +49,8 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                         "/*.gif",
                         "/*.css",
                         "/*.ts",
-                        "/sys/gettoken"
+                        "/sys/gettoken",
+                        "/tgw/gws"
                 )
             .excludePathPatterns(
                     "/swagger-resources/**",
@@ -52,9 +58,20 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                     // "/v2/api-docs",
                     // "/swagger-ui.html",
                     "/v2/**",//swagger2的路径，不能拦截
+                    "/tgw/gws",
                     "/swagger-ui.html/**");
         super.addInterceptors(registry);
     }
 
+    @Bean
+    public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        //设置日期格式
+        ObjectMapper objectMapper = new ObjectMapper();
+        SimpleDateFormat smt = new SimpleDateFormat("yyyy-MM-dd");
+        objectMapper.setDateFormat(smt);
+        mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper);
+        return mappingJackson2HttpMessageConverter;
+    }
 
 }

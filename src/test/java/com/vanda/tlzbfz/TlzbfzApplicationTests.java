@@ -3,9 +3,7 @@ package com.vanda.tlzbfz;
 import com.vanda.tlzbfz.entity.TDbyh;
 import com.vanda.tlzbfz.entity.TDh;
 import com.vanda.tlzbfz.entity.TXclr;
-import com.vanda.tlzbfz.mapper.TDbyhMapper;
-import com.vanda.tlzbfz.mapper.TUserGwMapper;
-import com.vanda.tlzbfz.mapper.TXclrMapper;
+import com.vanda.tlzbfz.mapper.*;
 import com.vanda.tlzbfz.service.TDbyhService;
 import com.vanda.tlzbfz.service.TDhService;
 import org.junit.jupiter.api.Test;
@@ -28,6 +26,8 @@ class TlzbfzApplicationTests {
     private TXclrMapper xclrMapper;
     @Autowired
     private TUserGwMapper userGwMapper;
+    @Autowired
+    private VDbrwMapper vDbyhMapper;
 
     @Test
     public void test(){
@@ -45,7 +45,7 @@ class TlzbfzApplicationTests {
 
     @Test
     public void test01(){
-        System.out.println("@@"+userGwMapper.selectAll());
+        System.out.println("@@"+vDbyhMapper.selectAll());
     }
 
 

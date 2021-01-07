@@ -27,6 +27,16 @@ public class VDbrwServiceImp implements VDbrwService {
     }
 
     @Override
+    public List<VDbrw> queryDbrwByConditionG(Dbrw dbrw) {
+        return vDbrwMapper.queryDbrwByConditionG(dbrw);
+    }
+
+    @Override
+    public List<VDbrw> selectAll() {
+        return vDbrwMapper.selectAll();
+    }
+
+    @Override
     public TDbrw getDbrwById(String id) {
         return tDbrwBeanMapper.getDbrwById(id);
     }

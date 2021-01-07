@@ -9,6 +9,7 @@ import com.vanda.tlzbfz.service.TDbyhService;
 import com.vanda.tlzbfz.service.TXclrService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -75,7 +76,7 @@ public class TXclrController {
 
                 for (int i=0;i<list.size();i++){
                     TDbyh dbyh = new TDbyh();
-                    dbyh.setYhbh(String.valueOf(System.currentTimeMillis()));
+                    dbyh.setYhbh(String.valueOf(System.currentTimeMillis()+RandomStringUtils.random(2)));
                     dbyh.setYhlx(list.get(i).getYhlx());
                     dbyh.setYhlb(list.get(i).getYhlb());
                     dbyh.setYhxm(list.get(i).getYhxm());

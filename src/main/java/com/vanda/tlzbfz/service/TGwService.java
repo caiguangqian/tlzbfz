@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface TGwService  {
     List<TGw> selctGw();
+    TGw selectBygwdm(String gwdm);
 }

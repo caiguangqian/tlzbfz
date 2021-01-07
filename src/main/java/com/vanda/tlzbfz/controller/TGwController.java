@@ -44,7 +44,7 @@ public class TGwController {
     //查询列表  条件查询 都使用该接口
     @ApiOperation(value = "查询所有岗位", httpMethod = "GET")
     @GetMapping("/gws")
-    public ResultMsg getGw(@RequestHeader("accept_token") String accept_token){
+    public ResultMsg getGw(){
        /* SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         String[] unit = user.getUnitCode();
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);

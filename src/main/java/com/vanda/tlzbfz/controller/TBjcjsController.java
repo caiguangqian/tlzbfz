@@ -45,10 +45,15 @@ public class TBjcjsController {
         SystemLoginUser user = (SystemLoginUser) redisUtil.get(accept_token);
         String[] unit = user.getUnitCode();
         TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
+        if("系统管理员岗位".equals(user.getGw())&&unit[0].length()==2){
+            List<TBjcjs> list = bjcjsService.selectAllJs();
+            if(list==null){
+                return  new ResultMsg("400","查询数据为空",null);
+            }
+            return new ResultMsg("2002020","查询数据成功",list);
+        }
         String jsmc = bjcjs.getJsdm();
-
-        //String jsl = jsmc.
-
+        jsmc=jsmc.substring(0,4);
         List<TBjcjs> list = bjcjsService.selectJslike("%"+jsmc+"%");
         if(list==null){
             return  new ResultMsg("400","查询数据为空",null);

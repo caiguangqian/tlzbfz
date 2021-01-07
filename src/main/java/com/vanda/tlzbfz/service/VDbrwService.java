@@ -8,6 +8,8 @@ public interface VDbrwService {
 
    /* List<VDbrw> queryDbrwList();*/
     List<VDbrw> queryDbrwByCondition(Dbrw vDbrw);
+    List<VDbrw> queryDbrwByConditionG(Dbrw dbrw);
+    List<VDbrw> selectAll();
 
     TDbrw getDbrwById(String id);
     int updateDbrw(TDbrw tDbrwBean);

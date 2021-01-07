@@ -5,6 +5,7 @@ import com.vanda.tlzbfz.mapper.TGwMapper;
 import com.vanda.tlzbfz.service.TGwService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -24,5 +25,14 @@ public class TGwServiceImpl  implements TGwService {
     @Override
     public List<TGw> selctGw() {
         return gwMapper.selctGw();
+    }
+
+    @Override
+    public TGw selectBygwdm(String gwdm) {
+        Example example = new Example(TGw.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("gwdm",gwdm);
+        TGw gw = (TGw) gwMapper.selectOneByExample(example);
+        return gw;
     }
 }

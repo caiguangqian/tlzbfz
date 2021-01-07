@@ -15,4 +15,5 @@ import lombok.NoArgsConstructor;
 public class CountBean {
     private String gw;
     private String bjcjs;
+    private String zt;
 }

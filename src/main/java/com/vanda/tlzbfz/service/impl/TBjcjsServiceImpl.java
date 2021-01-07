@@ -31,4 +31,9 @@ public class TBjcjsServiceImpl implements TBjcjsService {
     public List<TBjcjs> selectJslike(String jsl) {
         return bjcjsMapper.selectJslike(jsl);
     }
+
+    @Override
+    public List<TBjcjs> selectAllJs() {
+        return bjcjsMapper.selectAll();
+    }
 }

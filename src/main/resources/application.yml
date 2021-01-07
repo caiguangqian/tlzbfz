@@ -2,7 +2,7 @@ server:
   port: 9100
 spring:
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd
     time-zone: GMT+8
   profiles:
     active: prod
@@ -90,3 +90,7 @@ mybatis:
   type-aliases-package: com.vanda.tlzbfz.entity
   configuration:
     map-underscore-to-camel-case: true
+logging:
+  level:
+   com.vanda.tlzbfz.mapper: debug
+

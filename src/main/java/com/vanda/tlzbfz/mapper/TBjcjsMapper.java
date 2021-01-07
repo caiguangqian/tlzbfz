@@ -1,5 +1,6 @@
 package com.vanda.tlzbfz.mapper;
 
+import com.vanda.tlzbfz.common.config.TkMapper;
 import com.vanda.tlzbfz.entity.TBjcjs;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2020-12-15
  */
 @Repository
-public interface TBjcjsMapper{
+public interface TBjcjsMapper extends TkMapper<TBjcjs> {
 
     TBjcjs selectBjcjs(String jsdm);
     List<TBjcjs> selectJslike(String jsl);
