@@ -2,9 +2,9 @@ package com.vanda.tlzbfz.service.impl;
 
 import com.vanda.tlzbfz.common.util.DateUtils;
 import com.vanda.tlzbfz.common.util.RedisUtil;
+import com.vanda.tlzbfz.entity.LgnUserInfo;
 import com.vanda.tlzbfz.entity.Lgn_user;
 import com.vanda.tlzbfz.entity.SystemLoginUser;
-import com.vanda.tlzbfz.entity.TGw;
 import com.vanda.tlzbfz.entity.TUserGw;
 import com.vanda.tlzbfz.mapper.TGwMapper;
 import com.vanda.tlzbfz.mapper.TUserGwMapper;
@@ -31,13 +31,15 @@ public class TokenServiceImpl implements TokenService {
 
 
     @Override
-    public String gettoken(String pki_no) {
+    public LgnUserInfo gettoken(String pki_no) {
         /*Example example = new Example(TUserGw.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pk_no",pki_no);
         List<TUserGw> tUserGws = userGwMapper.selectByExample(example);
         TUserGw userGw = tUserGws.get(0);*/
+        LgnUserInfo userInfo = new LgnUserInfo();
         Lgn_user userinfo=tokenDao.selectuser(pki_no);
+        userInfo.setUsername(userinfo.getReal_name());
         SystemLoginUser user = new SystemLoginUser();
         user.setName(userinfo.getReal_name());
         user.setUnitCode(userinfo.getUnit().split("\\|"));
@@ -52,7 +54,8 @@ public class TokenServiceImpl implements TokenService {
             String rediskey="_"+DateUtils.getDateRandom()+"_"+user.getUnitCode()[0];
             if(redisUtil.set(rediskey,user)){
                 redisUtil.expire(rediskey,86400);
-                return rediskey;
+                userInfo.setToken(rediskey);
+                return userInfo;
             }
         }
         user.setPost(list.get(0).getGwdm());
@@ -61,9 +64,11 @@ public class TokenServiceImpl implements TokenService {
 
         if(redisUtil.set(rediskey,user)){
             redisUtil.expire(rediskey,86400);
-            return rediskey;
+            userInfo.setToken(rediskey);
+            userInfo.setGw(user.getPost());
+            return userInfo;
         }
-        return "1111";
+        return userInfo;
     }
 
 }

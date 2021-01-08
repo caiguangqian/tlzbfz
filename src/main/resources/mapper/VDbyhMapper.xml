@@ -26,7 +26,7 @@
         YID,BJCJS,JCJS, --to_char(XCRQ,'yyyy-mm-dd') AS
         XCRQ, XCR, QY, FS, YHLX, YHLB, YHXM,YHJBQK,XCLX,YHZT
 
-        from onion.V_DBYH
+        from V_DBYH
         where 1=1
         <if test="yid != null">
             and YID = #{yid,jdbcType=VARCHAR}

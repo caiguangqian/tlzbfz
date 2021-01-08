@@ -2,6 +2,7 @@ package com.vanda.tlzbfz.controller;
 
 
 import com.vanda.tlzbfz.common.util.ResultMsg;
+import com.vanda.tlzbfz.entity.LgnUserInfo;
 import com.vanda.tlzbfz.entity.TUserGw;
 import com.vanda.tlzbfz.mapper.TUserGwMapper;
 import com.vanda.tlzbfz.service.TokenService;
@@ -41,8 +42,13 @@ public class TokenController {
     @ApiOperation(value = "获取token", httpMethod = "GET")
     @ApiImplicitParam(name = "pk_no", value = "用户身份证", paramType = "query", required = true, dataType = "String")
     @RequestMapping(value = "/token",method= RequestMethod.GET)
-    public String gettoken(String pk_no) throws Exception{
-        return tokenService.gettoken(pk_no);
+    public ResultMsg gettoken(String pk_no) throws Exception{
+        LgnUserInfo userInfo = tokenService.gettoken(pk_no);
+        ResultMsg resultMsg = new ResultMsg();
+        resultMsg.setCode("200");
+        resultMsg.setMessage("获取成功!");
+        resultMsg.setData(userInfo);
+        return resultMsg;
     }
 
     /*@ApiOperation(value = "查询用户是否已绑定岗位", httpMethod = "GET")
@@ -77,11 +83,11 @@ public class TokenController {
         userGw.setPk_no(pk_no);
         userGw.setGwdm(gwdm);
         userGwMapper.insert(userGw);
-        String token = tokenService.gettoken(pk_no);
+        LgnUserInfo token = tokenService.gettoken(pk_no);
 
         resultMsg.setCode("200");
         resultMsg.setMessage("设置岗位成功！");
-        resultMsg.setData(token);
+        resultMsg.setData(token.getToken());
         return resultMsg;
     }
 

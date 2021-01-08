@@ -17,10 +17,8 @@ public class TRwlrBean implements Serializable {
 
     private Long yqcs;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date ksrq;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date jsrq;
 
     private String rwlx;
@@ -30,6 +28,10 @@ public class TRwlrBean implements Serializable {
     private String fbdw;
 
     private byte[] scwj;
+
+    private String fbgw;
+
+    private String wccs;
 
 
 }

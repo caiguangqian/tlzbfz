@@ -1,6 +1,6 @@
 package com.vanda.tlzbfz.service;
 
-import com.vanda.tlzbfz.entity.TGw;
+import com.vanda.tlzbfz.entity.TGwtl;
 
 import java.util.List;
 
@@ -13,6 +13,6 @@ import java.util.List;
  * @since 2020-12-07
  */
 public interface TGwService  {
-    List<TGw> selctGw();
-    TGw selectBygwdm(String gwdm);
+    List<TGwtl> selctGw();
+    TGwtl selectBygwdm(String gwdm);
 }

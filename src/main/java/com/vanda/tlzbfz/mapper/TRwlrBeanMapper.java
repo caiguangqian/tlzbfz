@@ -15,7 +15,7 @@ public interface TRwlrBeanMapper extends TkMapper<TRwlrBean> {
     //编辑
     int updateBySelective(TRwlrBean record);
     //列表
-    List<TRwlrBean>  getRwlrByCondition(@Param("fbdw") String fbdw,@Param("rwbh") String rwbh);
+    List<TRwlrBean>  getRwlrByCondition(TRwlrBean rwlrBean);
     int deleteByRwbh(String rwbh);
 
 }

@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 2020-12-07
  */
 @Data
-public class TGw implements Serializable {
+public class TGwtl implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

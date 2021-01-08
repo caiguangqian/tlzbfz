@@ -1,6 +1,6 @@
 package com.vanda.tlzbfz.service.impl;
 
-import com.vanda.tlzbfz.entity.TGw;
+import com.vanda.tlzbfz.entity.TGwtl;
 import com.vanda.tlzbfz.mapper.TGwMapper;
 import com.vanda.tlzbfz.service.TGwService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,16 @@ public class TGwServiceImpl  implements TGwService {
     @Autowired
     TGwMapper gwMapper;
     @Override
-    public List<TGw> selctGw() {
+    public List<TGwtl> selctGw() {
         return gwMapper.selctGw();
     }
 
     @Override
-    public TGw selectBygwdm(String gwdm) {
-        Example example = new Example(TGw.class);
+    public TGwtl selectBygwdm(String gwdm) {
+        Example example = new Example(TGwtl.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("gwdm",gwdm);
-        TGw gw = (TGw) gwMapper.selectOneByExample(example);
+        TGwtl gw = (TGwtl) gwMapper.selectOneByExample(example);
         return gw;
     }
 }

@@ -108,12 +108,43 @@ public class TDbrwController {
             }
             return new ResultMsg("200","查询数据成功",list);
         }
+
         Dbrw dbrw = new Dbrw();
         BeanUtils.copyProperties(vDbrw,dbrw);
-        dbrw.setFbdw(bjcjs.getJsdm());
-        dbrw.setGwdm(user.getPost());
-        dbrw.setBjcjs(bjcjs.getJsdm());
-        List<VDbrw> vDbrws = vDbrwService.queryDbrwByConditionG(dbrw);
+        if("1".equals(vDbrw.getYwcrw())){
+            dbrw.setZt("1");
+            dbrw.setFbdw(bjcjs.getJsdm());
+            dbrw.setFbgw(user.getPost());
+            List<VDbrw> vDbrws = vDbrwService.queryDbrwByCondition(dbrw);
+            List<VDbrw> list = ListUtils.deepCopy(vDbrws);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setBjcjs(bjcjs.getJsmc());
+                TBjcjs fbdw = bjcjsService.selectBjcjs(list.get(i).getFbdw());
+                list.get(i).setFbdw(fbdw.getJsmc());
+            }
+            if(vDbrws==null){
+                return  new ResultMsg("400","查询数据为空",null);
+            }
+            return new ResultMsg("200","查询数据成功",list);
+        }else {
+            dbrw.setFbdw(bjcjs.getJsdm());
+            dbrw.setGwdm(user.getPost());
+            dbrw.setBjcjs(bjcjs.getJsdm());
+            dbrw.setFbgw(user.getPost());
+            List<VDbrw> vDbrws = vDbrwService.queryDbrwByConditionG(dbrw);
+            List<VDbrw> list = ListUtils.deepCopy(vDbrws);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setBjcjs(bjcjs.getJsmc());
+                TBjcjs fbdw = bjcjsService.selectBjcjs(list.get(i).getFbdw());
+                list.get(i).setFbdw(fbdw.getJsmc());
+            }
+            if(vDbrws==null){
+                return  new ResultMsg("400","查询数据为空",null);
+            }
+            return new ResultMsg("200","查询数据成功",list);
+        }
+
+
         /*Example example = new Example(VDbrw.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("bjcjs",bjcjs.getJsdm());
@@ -125,16 +156,7 @@ public class TDbrwController {
 
         List<VDbrw> vDbrws = vDbrwMapper.selectByExample(example);*/
         //list深度拷贝
-        List<VDbrw> list = ListUtils.deepCopy(vDbrws);
-        for(int i=0;i<list.size();i++){
-            list.get(i).setBjcjs(bjcjs.getJsmc());
-            TBjcjs fbdw = bjcjsService.selectBjcjs(list.get(i).getFbdw());
-            list.get(i).setFbdw(fbdw.getJsmc());
-        }
-        if(vDbrws==null){
-            return  new ResultMsg("400","查询数据为空",null);
-        }
-        return new ResultMsg("200","查询数据成功",list);
+
 
     }
 

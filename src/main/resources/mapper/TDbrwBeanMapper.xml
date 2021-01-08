@@ -19,7 +19,7 @@
   <select id="getDbrwById" parameterType="com.vanda.tlzbfz.entity.TDbrw" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from onion.T_DBRW
+    from T_DBRW
     where ID = #{id,jdbcType=VARCHAR}
   </select>
 
@@ -83,7 +83,7 @@
     </trim>
   </insert>
   <update id="updateDbrw" parameterType="com.vanda.tlzbfz.entity.TDbrw">
-    update onion.T_DBRW
+    update T_DBRW
     <set>
       <if test="gw != null">
         GW = #{gw,jdbcType=VARCHAR},

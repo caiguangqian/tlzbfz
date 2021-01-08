@@ -14,6 +14,7 @@ public class Dbrw extends VDbrw {
     //发布日期
 
     private Date fbrq;
+    private String ywcrw;
     //private String gwdm;
     //private String cxlx;
 }

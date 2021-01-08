@@ -12,30 +12,37 @@
       <result column="RWSM" property="rwsm" jdbcType="VARCHAR" />
       <result column="FBDW" property="fbdw" jdbcType="VARCHAR" />
       <result column="SCWJ" property="scwj" jdbcType="BLOB" />
+      <result column="FBGW" property="fbgw" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List">
    RWBH, RWJC, YQCS,
       KSRQ, JSRQ, RWLX,
-      RWSM, FBDW, SCWJ
+      RWSM, FBDW, SCWJ,FBGW
   </sql>
   <delete id="deleteByRwbh" parameterType="string">
     delete from T_RWLR t where t.rwbh= #{rwbh,jdbcType=VARCHAR}
   </delete>
-  <select id="getRwlrByCondition" parameterType="string" resultMap="BaseResultMap">
+  <select id="getRwlrByCondition" parameterType="com.vanda.tlzbfz.entity.TRwlrBean" resultMap="BaseResultMap">
     select
     RWBH, RWJC, YQCS,
     to_char(KSRQ,'yyyy-mm-dd') AS KSRQ,
     to_char(JSRQ,'yyyy-mm-dd') AS JSRQ,
     RWLX,
-    RWSM, FBDW, SCWJ
-    from onion.T_RWLR
+    RWSM, FBDW, SCWJ,FBGW
+    from T_RWLR
     where 1=1
     <if test="rwbh != null">
       and RWBH = #{rwbh,jdbcType=VARCHAR}
     </if>
     <if test="fbdw != null">
       and FBDW = #{fbdw,jdbcType=VARCHAR}
+    </if>
+    <if test="rwlx != null">
+      and  RWLX = #{rwlx,jdbcType=VARCHAR}
+    </if>
+    <if test="fbgw != null">
+      and  FBGW = #{fbgw,jdbcType=VARCHAR}
     </if>
   </select>
 
@@ -70,6 +77,9 @@
       <if test="scwj != null">
         SCWJ,
       </if>
+      <if test="fbgw != null">
+        FBGW,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rwbh != null">
@@ -99,11 +109,14 @@
       <if test="scwj != null">
         #{scwj,jdbcType=BLOB},
       </if>
+      <if test="fbgw != null">
+        #{fbgw,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
 
   <update id="updateBySelective" parameterType="java.lang.String">
-    update onion.T_RWLR
+    update T_RWLR
     <set>
       <if test="rwbh != null">
         RWBH =#{rwbh,jdbcType=VARCHAR},
@@ -131,6 +144,9 @@
       </if>
       <if test="scwj != null">
         SCWJ =#{scwj,jdbcType=BLOB},
+      </if>
+      <if test="fbgw != null">
+        FBGW =#{fbgw,jdbcType=BLOB},
       </if>
     </set>
     where RWBH = #{rwbh,jdbcType=VARCHAR}

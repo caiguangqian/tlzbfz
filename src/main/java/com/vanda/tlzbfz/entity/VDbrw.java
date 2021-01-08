@@ -43,6 +43,8 @@ public class VDbrw implements java.io.Serializable{
 
     private String fbdw;
 
+    private String fbgw;
+
     //private String isGly;
 
 }
