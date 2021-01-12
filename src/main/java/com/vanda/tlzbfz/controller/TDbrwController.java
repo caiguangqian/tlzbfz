@@ -9,6 +9,7 @@ import com.vanda.tlzbfz.common.util.ResultMsg;
 import com.vanda.tlzbfz.entity.*;
 import com.vanda.tlzbfz.mapper.VDbrwMapper;
 import com.vanda.tlzbfz.service.TBjcjsService;
+import com.vanda.tlzbfz.service.TokenService;
 import com.vanda.tlzbfz.service.VDbrwService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,10 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +43,8 @@ public class TDbrwController {
     private TBjcjsService bjcjsService;
     @Autowired
     private VDbrwMapper vDbrwMapper;
+    @Autowired
+    private TokenService tokenService;
 
     //查询列表  条件查询 都使用该接口
     @ApiOperation(value = "组合条件查询自己岗位的待办任务", httpMethod = "GET")
@@ -176,6 +177,24 @@ public class TDbrwController {
         return new ResultMsg("200","查询数据成功,记录数为：",vDbrws);
 
     }
+
+    @ApiOperation(value = "根据身份证号查询待办任务记录数", httpMethod = "GET")
+    @GetMapping("/dbrwpkCount")
+    public ResultMsg selectCountByPkno(@RequestParam("user") String user){
+        LgnUserInfo userInfo = tokenService.gettoken(user);
+        SystemLoginUser user1 = (SystemLoginUser) redisUtil.get(userInfo.getToken());
+        String[] unit = user1.getUnitCode();
+        TBjcjs bjcjs = bjcjsService.selectBjcjs(unit[0]);
+
+        CountBean countBean = new CountBean();
+        countBean.setGw(user1.getPost());
+        countBean.setBjcjs(bjcjs.getJsdm());
+        countBean.setZt("0");
+        long vDbrws = vDbrwService.selectCountByGW(countBean);
+        return new ResultMsg("200","查询数据成功,记录数为：",vDbrws);
+
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     @ApiOperation(value = "下级确认完成待办任务,传任务id", httpMethod = "POST")

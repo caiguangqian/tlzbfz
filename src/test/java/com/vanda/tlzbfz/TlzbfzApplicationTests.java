@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tk.mybatis.mapper.entity.Example;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @SpringBootTest
 class TlzbfzApplicationTests {
@@ -28,6 +32,8 @@ class TlzbfzApplicationTests {
     private TUserGwMapper userGwMapper;
     @Autowired
     private VDbrwMapper vDbyhMapper;
+    @Autowired
+    private TGwMapper gwMapper;
 
     @Test
     public void test(){
@@ -45,7 +51,8 @@ class TlzbfzApplicationTests {
 
     @Test
     public void test01(){
-        System.out.println("@@"+vDbyhMapper.selectAll());
+
+        System.out.println(gwMapper.selectAll());
     }
 
 

@@ -17,5 +17,6 @@ import java.util.List;
  */
 @Repository
 public interface TGwMapper extends TkMapper<TGwtl> {
-    List<TGwtl> selctGw();
+    List<TGwtl> selctGw(String gw);
+    List<TGwtl> selctGw1(String gw);
 }

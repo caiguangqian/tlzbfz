@@ -82,7 +82,6 @@
         </if>
         <if test="bjcjs != null">
             and (BJCJS = #{bjcjs,jdbcType=VARCHAR} or FBDW = #{fbdw,jdbcType=VARCHAR})
-
         </if>
         <if test="gwdm != null">
             and (GWDM = #{gwdm,jdbcType=VARCHAR} or FBGW = #{fbgw,jdbcType=VARCHAR})

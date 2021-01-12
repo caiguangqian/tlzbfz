@@ -9,11 +9,11 @@ spring:
   mvc:
     dispatch-options-request: true
   datasource:
-    url: jdbc:oracle:thin:@192.168.1.97:1521/orcl
+    url: jdbc:oracle:thin:@192.168.0.115:1521/orcl
 #    url: jdbc:oracle:thin:@192.168.1.1:1521/guandong44
     driver-class-name: oracle.jdbc.OracleDriver
-    username: onion
-    password: 123456
+    username: jg_data
+    password: jjjjjj
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中
     # 初始化大小，最小，最大
@@ -46,12 +46,12 @@ spring:
     database: 0
     # 服务器IP地址
 #    host: 121.37.17.52
-    host: 192.168.1.97
+    host: 127.0.0.1
    # host: localhost
     # 连接端口
     port: 6379
     # Redis服务器连接密码（默认为空）
-    #password: vanda@123456
+    password: vanda
     jedis:
       pool:
         # 连接池最大连接数（使用负值表示没有限制）

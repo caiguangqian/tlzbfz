@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Api(value = "任务录入接口")
 @RestController
@@ -67,9 +65,9 @@ public class TRwlrController {
             //获取前端传过来的录入bean类
             TRwlrBean rwlrBean = new TRwlrBean();
             BeanUtils.copyProperties(record,rwlrBean);
-            Random random = new Random();
+            String curTime = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + String.format("%04d",new Random().nextInt(10000));
             ResultMsg resultMsg=new ResultMsg();
-            String id = String.valueOf(random.nextInt(3)+System.currentTimeMillis());
+            String id = String.valueOf(curTime);
             rwlrBean.setRwbh(id.substring(6,id.length()));
             rwlrBean.setFbdw(bjcjs.getJsdm());
             rwlrBean.setFbgw(user.getPost());
@@ -79,7 +77,8 @@ public class TRwlrController {
             if(list.size()>0){
                 for (int i=0;i<list.size();i++){
                     TDbrw dbrwBean = new TDbrw();
-                    dbrwBean.setId(String.valueOf(random.nextInt(3)+System.currentTimeMillis()));
+                    String curTime1 = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + String.format("%04d",new Random().nextInt(10000));
+                    dbrwBean.setId(String.valueOf(curTime1));
                     dbrwBean.setRwbh(rwlrBean.getRwbh());
                     dbrwBean.setBjcjs(record.getBjcjs());
                     dbrwBean.setZt("0");
@@ -87,6 +86,7 @@ public class TRwlrController {
                     dbrwBean.setSycs(rwlrBean.getYqcs());
                     dbrwBean.setGw(list.get(i));
                     vDbrwService.inserDbrwSelective(dbrwBean);
+                    Thread.sleep(1);
                 }
             }
 

@@ -23,8 +23,13 @@ public class TGwServiceImpl  implements TGwService {
     @Autowired
     TGwMapper gwMapper;
     @Override
-    public List<TGwtl> selctGw() {
-        return gwMapper.selctGw();
+    public List<TGwtl> selctGw(String gw) {
+        if(null==gw||"".equals(gw)){
+            System.out.println("dfdfdf");
+            return gwMapper.selctGw1(gw);
+        }
+
+        return gwMapper.selctGw(gw);
     }
 
     @Override
